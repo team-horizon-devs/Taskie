@@ -2,7 +2,7 @@
 
 namespace Taskie.Domain.Entities
 {
-    class AchievementUser
+    public class AchievementUser
     {
         public string UserId { get; set; }
         public User User { get; set; }

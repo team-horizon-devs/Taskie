@@ -3,7 +3,7 @@ using Taskie.Domain.Entities.Enums;
 
 namespace Taskie.Domain.Entities
 {
-    class Task : BaseEntity
+    public class Task : BaseEntity
     {
         public string Tittle { get; set; }
         public string Description { get; set; }

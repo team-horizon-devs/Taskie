@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Taskie.Domain.Entities
 {
-    class BaseEntity
+    public class BaseEntity
     {
         [Key]
         public int Id { get; set; }

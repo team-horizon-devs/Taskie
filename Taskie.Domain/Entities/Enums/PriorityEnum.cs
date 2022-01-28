@@ -1,6 +1,6 @@
 ﻿namespace Taskie.Domain.Entities.Enums
 {
-    enum PriorityEnum : int
+    public enum PriorityEnum : int
     {
         HighPriority = 1,
         MediumPriority = 2,

@@ -3,7 +3,7 @@ using System;
 
 namespace Taskie.Domain.Entities
 {
-    class User : IdentityUser
+    public class User : IdentityUser
     {
         public bool Active { get; set; }
         public DateTime LastLogin { get; set; }

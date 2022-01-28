@@ -2,7 +2,7 @@
 
 namespace Taskie.Domain.Entities
 {
-    class TrophyUser
+    public class TrophyUser
     {
         public string UserId { get; set; }
         public int TrophyId { get; set; }

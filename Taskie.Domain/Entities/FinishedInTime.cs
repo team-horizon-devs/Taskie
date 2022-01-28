@@ -2,7 +2,7 @@
 
 namespace Taskie.Domain.Entities
 {
-    class FinishedInTime
+    public class FinishedInTime
     {
         public string UserId { get; set; }
         public int Priority1 { get; set; }
