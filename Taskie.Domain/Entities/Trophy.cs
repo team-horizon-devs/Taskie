@@ -1,6 +1,4 @@
-﻿
-
-namespace Taskie.Domain.Entities
+﻿namespace Taskie.Domain.Entities
 {
     class Trophy : BaseEntity
 

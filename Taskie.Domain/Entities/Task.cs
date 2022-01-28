@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Taskie.Domain.Entities.Enums;
 
 namespace Taskie.Domain.Entities
@@ -11,7 +7,7 @@ namespace Taskie.Domain.Entities
     {
         public string Tittle { get; set; }
         public string Description { get; set; }
-        public Priority Priority { get; set; }
+        public PriorityEnum Priority { get; set; }
         public bool Finished { get; set; }
         public bool FinishedInTime { get; set; }
         public DateTime Deadline { get; set; }
