@@ -2,6 +2,6 @@
 {
     class Avatar : BaseEntity
     {
-        public string Src { get; set; }
+        public string Ney { get; set; }
     }
 }
