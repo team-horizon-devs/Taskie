@@ -6,7 +6,7 @@
 
   <ItemGroup>
     <Folder Include="Dto\" />
-    <Folder Include="Interfaces\" />
+    <Folder Include="Interfaces\Service\" />
   </ItemGroup>
 
   <ItemGroup>
