@@ -4,7 +4,7 @@ using Taskie.Domain.Entities;
 
 namespace Taskie.Infra.Data.Context
 {
-    class TaskieContext : IdentityDbContext<User>
+    public class TaskieContext : IdentityDbContext
     {
         public DbSet<Achievement> Achievements { get; set; }
         public DbSet<AchievementUser> AchievementsUsers { get; set; }
@@ -22,13 +22,14 @@ namespace Taskie.Infra.Data.Context
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            base.OnModelCreating(builder);
+
             builder.Entity<TrophyUser>().HasKey(tu => new {tu.UserId, tu.TrophyId});
             builder.Entity<AchievementUser>().HasKey(au => new { au.UserId, au.AchievementId });
-            
+            builder.Entity<UserPoint>().HasKey(up => new { up.UserId});
+            builder.Entity<FinishedInTime>().HasKey(ft => new { ft.UserId });
+
         }
-
-
-
 
     }
 }

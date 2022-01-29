@@ -1,15 +1,12 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Taskie.Infra.Data.Context;
 
 namespace Taskie.Application
 {
@@ -27,6 +24,11 @@ namespace Taskie.Application
         {
 
             services.AddControllers();
+
+            services.AddDbContext<TaskieContext>(options => options
+            .UseMySql(Configuration.GetConnectionString("DefaultConnections"), 
+            new MySqlServerVersion(new Version(10,4,21))));
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Taskie.Application", Version = "v1" });
