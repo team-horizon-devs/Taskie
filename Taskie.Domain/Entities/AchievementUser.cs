@@ -8,7 +8,7 @@ namespace Taskie.Domain.Entities
         public User User { get; set; }
         public int AchievementId { get; set; }
         public Achievement Achievement { get; set; }
-        public DateTime CreatedAt { get; set; }
+        public DateTime CreatedAt { get; set; } = DateTime.Now;
         public DateTime UpdatedAt { get; set; }
     }
 }

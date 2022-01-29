@@ -9,7 +9,7 @@ namespace Taskie.Domain.Entities
         public int Priority2 { get; set; }
         public int Priority3 { get; set; }
         public User User { get; set; }
-        public DateTime CreatedAt { get; set; }
+        public DateTime CreatedAt { get; set; } = DateTime.Now;
         public DateTime UpdatedAt { get; set; }
     }
 }
