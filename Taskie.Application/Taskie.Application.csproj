@@ -21,4 +21,8 @@
     <ProjectReference Include="..\Taskie.Infra.Data\Taskie.Infra.Data.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Controllers\" />
+  </ItemGroup>
+
 </Project>
