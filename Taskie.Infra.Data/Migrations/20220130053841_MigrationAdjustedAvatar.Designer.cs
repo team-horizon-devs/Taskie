@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Taskie.Infra.Data.Context;
 
 namespace Taskie.Infra.Data.Migrations
 {
     [DbContext(typeof(TaskieContext))]
-    partial class TaskieContextModelSnapshot : ModelSnapshot
+    [Migration("20220130053841_MigrationAdjustedAvatar")]
+    partial class MigrationAdjustedAvatar
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

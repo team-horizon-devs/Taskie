@@ -6,7 +6,11 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using System;
+using Taskie.Domain.Entities;
+using Taskie.Domain.Interfaces.Repository;
 using Taskie.Infra.Data.Context;
+using Taskie.Infra.Data.Repository;
+using Taskie.Infra.Data.Repository.Implementations;
 
 namespace Taskie.Application
 {
@@ -24,6 +28,8 @@ namespace Taskie.Application
         {
 
             services.AddControllers();
+
+            services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
 
             services.AddDbContext<TaskieContext>(options => options
             .UseMySql(Configuration.GetConnectionString("DefaultConnections"), 
