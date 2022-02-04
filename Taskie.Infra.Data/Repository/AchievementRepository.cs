@@ -9,7 +9,7 @@ using Taskie.Infra.Data.Context;
 
 namespace Taskie.Infra.Data.Repository
 {
-    class AchievementRepository : BaseRepository<Achievement>, IAchievementRepository
+    public class AchievementRepository : BaseRepository<AchievementEntity>, IAchievementRepository
     {
         public AchievementRepository(TaskieContext context) : base(context)
         {

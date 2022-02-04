@@ -10,7 +10,7 @@ using Taskie.Infra.Data.Context;
 
 namespace Taskie.Infra.Data.Repository.Implementations
 {
-    public class AvatarRepository : BaseRepository<Avatar>, IAvatarRepository
+    public class AvatarRepository : BaseRepository<AvatarEntity>, IAvatarRepository
     {
         public AvatarRepository(TaskieContext context) : base(context)
         {

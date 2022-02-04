@@ -9,7 +9,7 @@ using Taskie.Infra.Data.Context;
 
 namespace Taskie.Infra.Data.Repository
 {
-    class AchievementUserRepository : IAchievementUserRepository
+    public class AchievementUserRepository : IAchievementUserRepository
     {
         private readonly TaskieContext _context;
 
@@ -18,19 +18,19 @@ namespace Taskie.Infra.Data.Repository
             _context = context;
         }
 
-        public void Create(AchievementUser obj)
+        public void Create(AchievementUserEntity obj)
         {
             _context.AchievementsUsers.Add(obj);
         }
 
-        public async Task<IEnumerable<AchievementUser>> GetAllAsync()
+        public async Task<IEnumerable<AchievementUserEntity>> GetAllAsync()
         {
             return await _context.AchievementsUsers.ToListAsync();
         }
 
-        public async Task<IEnumerable<AchievementUser>> GetAllAchievementsByUserIdAsync(string userId)
+        public async Task<IEnumerable<AchievementUserEntity>> GetAllAchievementsByUserIdAsync(string userId)
         {
-            IQueryable<AchievementUser> query = _context.AchievementsUsers;
+            IQueryable<AchievementUserEntity> query = _context.AchievementsUsers;
             query = query.Include(au => au.Achievement).Where(a => a.UserId == userId);
 
             return await query.AsNoTracking().ToListAsync();

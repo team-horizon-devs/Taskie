@@ -9,9 +9,9 @@ namespace Taskie.Domain.Interfaces.Repository
 {
     public interface IAchievementUserRepository
     {
-        void Create(AchievementUser obj);
-        Task<IEnumerable<AchievementUser>> GetAllAsync();
+        void Create(AchievementUserEntity obj);
+        Task<IEnumerable<AchievementUserEntity>> GetAllAsync();
         Task<bool> SaveChangesAsync();
-        Task<IEnumerable<AchievementUser>> GetAllAchievementsByUserIdAsync(string userId);
+        Task<IEnumerable<AchievementUserEntity>> GetAllAchievementsByUserIdAsync(string userId);
     }
 }

@@ -4,7 +4,7 @@ using Taskie.Infra.Data.Context;
 
 namespace Taskie.Infra.Data.Repository
 {
-    public class TrhophyRepository : BaseRepository<Trophy>, ITrophyRepository
+    public class TrhophyRepository : BaseRepository<TrophyEntity>, ITrophyRepository
     {
         public TrhophyRepository(TaskieContext context) : base(context)
         {
