@@ -9,7 +9,7 @@ using Taskie.Infra.Data.Repository.Implementations;
 
 namespace Taskie.Infra.Data.Extensions
 {
-    public static class DataExtensions
+    public static class ConfigureRepository
     {
         public static IServiceCollection AddEntityFramework
             (this IServiceCollection services, IConfiguration configuration)

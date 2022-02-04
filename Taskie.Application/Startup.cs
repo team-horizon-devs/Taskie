@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using Taskie.Infra.CrossCutting.DependencyInjection;
 using Taskie.Infra.Data.Extensions;
 
 namespace Taskie.Application
@@ -24,6 +25,8 @@ namespace Taskie.Application
             services.AddControllers();
 
             services.AddRepositories();
+
+            services.AddServices();
 
             services.AddEntityFramework(Configuration);
 
