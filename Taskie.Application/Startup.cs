@@ -9,6 +9,7 @@ using System;
 using Taskie.Domain.Entities;
 using Taskie.Domain.Interfaces.Repository;
 using Taskie.Infra.Data.Context;
+using Taskie.Infra.Data.Extensions;
 using Taskie.Infra.Data.Repository;
 using Taskie.Infra.Data.Repository.Implementations;
 
@@ -29,11 +30,9 @@ namespace Taskie.Application
 
             services.AddControllers();
 
-            services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
+            services.AddRepositories();
 
-            services.AddDbContext<TaskieContext>(options => options
-            .UseMySql(Configuration.GetConnectionString("DefaultConnections"), 
-            new MySqlServerVersion(new Version(10,4,21))));
+            services.AddEntityFramework(Configuration);
 
             services.AddSwaggerGen(c =>
             {
