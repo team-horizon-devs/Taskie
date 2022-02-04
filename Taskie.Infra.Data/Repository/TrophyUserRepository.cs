@@ -1,5 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -20,10 +20,17 @@ namespace Taskie.Infra.Data.Repository
 
         public async Task<TrophyUserEntity> CreateAsync(TrophyUserEntity trophyEntity)
         {
-            _context.TrophiesUsers.Add(trophyEntity);
-            await _context.SaveChangesAsync();
-
-            return trophyEntity;
+            try
+            {
+                _context.TrophiesUsers.Add(trophyEntity);
+                await _context.SaveChangesAsync();
+                return trophyEntity;
+            }
+            catch(Exception)
+            {
+                throw;
+            }
+            
         }
 
         public async Task<IEnumerable<TrophyUserEntity>> GetAllTrophiesByUserIdAsync(string idUser)

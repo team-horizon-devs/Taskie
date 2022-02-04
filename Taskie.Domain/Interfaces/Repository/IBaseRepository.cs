@@ -6,13 +6,12 @@ namespace Taskie.Domain.Interfaces.Repository
 {
     public interface IBaseRepository<T> where T : BaseEntityEntity
     {
-        void Create(T obj);
-        void Update(T obj);
-        void Delete(int id);
+        Task<T> CreateAsync(T obj);
+        Task<T> UpdateAsync(T obj);
+        Task<bool> DeleteAsync(int id);
         Task<T> GetIdAsync(int id);
         Task<IEnumerable<T>> GetAllAsync();
         Task<bool> ExistAsync(int id);
-        Task<bool> SaveChangesAsync();
 
     }
 }
