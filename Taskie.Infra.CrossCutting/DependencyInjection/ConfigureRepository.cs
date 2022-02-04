@@ -5,11 +5,11 @@ using System;
 using Taskie.Domain.Interfaces.Repository;
 using Taskie.Infra.Data.Context;
 using Taskie.Infra.Data.Repository;
-using Taskie.Infra.Data.Repository.Implementations;
+using Taskie.Infra.Data.Repository;
 
 namespace Taskie.Infra.Data.Extensions
 {
-    public static class DataExtensions
+    public static class ConfigureRepository
     {
         public static IServiceCollection AddEntityFramework
             (this IServiceCollection services, IConfiguration configuration)
@@ -26,6 +26,8 @@ namespace Taskie.Infra.Data.Extensions
             services.AddScoped<IAvatarRepository, AvatarRepository>();
             services.AddScoped<IAchievementRepository, AchievementRepository>();
             services.AddScoped<IAchievementUserRepository, AchievementUserRepository>();
+            services.AddScoped<ITrophyRepository, TrophyRepository>();
+            services.AddScoped<ITrophyUserRepository, TrophyUserRepository>();
 
             return services;
         }
