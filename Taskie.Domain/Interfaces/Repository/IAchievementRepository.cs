@@ -7,7 +7,7 @@ using Taskie.Domain.Entities;
 
 namespace Taskie.Domain.Interfaces.Repository
 {
-    public interface IAchievementRepository : IBaseRepository<Achievement>
+    public interface IAchievementRepository : IBaseRepository<AchievementEntity>
     {
     }
 }

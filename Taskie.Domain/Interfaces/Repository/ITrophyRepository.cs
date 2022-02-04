@@ -2,7 +2,7 @@
 
 namespace Taskie.Domain.Interfaces.Repository
 {
-    public interface ITrophyRepository : IBaseRepository<Trophy>
+    public interface ITrophyRepository : IBaseRepository<TrophyEntity>
     {
     }
 }

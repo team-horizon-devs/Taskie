@@ -2,7 +2,7 @@
 
 namespace Taskie.Domain.Interfaces.Repository
 {
-    public interface IAvatarRepository : IBaseRepository<Avatar>
+    public interface IAvatarRepository : IBaseRepository<AvatarEntity>
     {
         
     }
