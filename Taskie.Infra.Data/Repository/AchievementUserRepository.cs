@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -36,9 +35,9 @@ namespace Taskie.Infra.Data.Repository
             return await query.AsNoTracking().ToListAsync();
         }
 
-        public Task<bool> SaveChangesAsync()
+        public async Task<bool> SaveChangesAsync()
         {
-            throw new System.NotImplementedException();
+            return (await _context.SaveChangesAsync() > 0);
         }
     }
 }
