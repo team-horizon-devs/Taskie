@@ -5,7 +5,6 @@ using System;
 using Taskie.Domain.Interfaces.Repository;
 using Taskie.Infra.Data.Context;
 using Taskie.Infra.Data.Repository;
-using Taskie.Infra.Data.Repository;
 
 namespace Taskie.Infra.Data.Extensions
 {

@@ -4,7 +4,7 @@ using Taskie.Domain.Entities;
 
 namespace Taskie.Domain.Interfaces.Repository
 {
-    public interface IBaseRepository<T> where T : BaseEntityEntity
+    public interface IBaseRepository<T> where T : BaseEntity
     {
         Task<T> CreateAsync(T obj);
         Task<T> UpdateAsync(T obj);

@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -17,9 +18,19 @@ namespace Taskie.Infra.Data.Repository
             _context = context;
         }
 
-        public void Create(AchievementUserEntity obj)
+        public async Task<AchievementUserEntity> Create(AchievementUserEntity obj)
         {
-            _context.AchievementsUsers.Add(obj);
+            try
+            {
+                _context.AchievementsUsers.Add(obj);
+                await _context.SaveChangesAsync();
+
+                return obj;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
         public async Task<IEnumerable<AchievementUserEntity>> GetAllAsync()
@@ -35,9 +46,5 @@ namespace Taskie.Infra.Data.Repository
             return await query.AsNoTracking().ToListAsync();
         }
 
-        public Task<bool> SaveChangesAsync()
-        {
-            throw new System.NotImplementedException();
-        }
     }
 }

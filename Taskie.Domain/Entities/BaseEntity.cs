@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Taskie.Domain.Entities
 {
-    public class BaseEntityEntity
+    public class BaseEntity
     {
         public int Id { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.Parse(DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss"));

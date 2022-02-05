@@ -9,7 +9,7 @@ using Taskie.Infra.Data.Context;
 
 namespace Taskie.Infra.Data.Repository
 {
-    public class BaseRepository<T> : IBaseRepository<T> where T : BaseEntityEntity
+    public class BaseRepository<T> : IBaseRepository<T> where T : BaseEntity
     {
         public readonly TaskieContext _context;
         public readonly DbSet<T> _dataSet;
