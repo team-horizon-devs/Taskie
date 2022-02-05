@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Taskie.Domain.Entities;
 
@@ -9,10 +6,10 @@ namespace Taskie.Domain.Interfaces.Repository
 {
     public interface IUserPointRepository
     {
-        void Create(UserPoint obj);
+        Task<UserPointEntity> CreateAsync(UserPointEntity userPointEntity);
 
-        void Update(UserPoint obj);
-        Task<IEnumerable<UserPoint>> GetAllPointsByUserIdAsync(string userId);
+        Task<UserPointEntity> UpdateAsync(UserPointEntity userPointEntity);
+        Task<IEnumerable<UserPointEntity>> GetAllPointsByUserIdAsync(string idUser);
 
     }
 }

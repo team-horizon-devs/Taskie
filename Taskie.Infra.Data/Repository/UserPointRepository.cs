@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -12,22 +13,41 @@ namespace Taskie.Infra.Data.Repository
     {
         private readonly TaskieContext _context;
 
-        public void Create(UserPoint obj)
+        public async Task<UserPointEntity> CreateAsync(UserPointEntity userPointEntity)
         {
-            _context.UsersPoints.Add(obj);
+            try
+            {
+                _context.UsersPoints.Add(userPointEntity);
+                await _context.SaveChangesAsync();
+                return userPointEntity;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
-        public async Task<IEnumerable<UserPoint>> GetAllPointsByUserIdAsync(string userId)
+        public async Task<UserPointEntity> UpdateAsync(UserPointEntity userPointEntity)
         {
-            IQueryable<UserPoint> query = _context.UsersPoints;
-            query = query.Include(up => up.Points).Where(p => p.UserId == userId);
+            try
+            {
+                _context.UsersPoints.Update(userPointEntity);
+                await _context.SaveChangesAsync();
+                return userPointEntity;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public async Task<IEnumerable<UserPointEntity>> GetAllPointsByUserIdAsync(string idUser)
+        {
+            IQueryable<UserPointEntity> query = _context.UsersPoints;
+            query = query.Include(up => up.Points).Where(p => p.UserId == idUser);
 
             return await query.AsNoTracking().ToListAsync();
         }
 
-        public void Update(UserPoint obj)
-        {
-            _context.UsersPoints.Update(obj);
-        }
     }
 }
