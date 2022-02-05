@@ -9,8 +9,8 @@ namespace Taskie.Domain.Entities
         public DateTime LastLogin { get; set; }
         public int AvatarId { get; set; }
         public AvatarEntity Avatar { get; set; }
-        public DateTime CreatedAt { get; set; } = DateTime.Now;
-        public DateTime UpdatedAt { get; set; }
+        public DateTime CreatedAt { get; set; } = DateTime.Parse(DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss"));
+        public DateTime? UpdatedAt { get; set; }
 
     }
 }

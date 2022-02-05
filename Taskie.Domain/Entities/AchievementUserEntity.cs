@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Taskie.Domain.Entities
 {
@@ -8,8 +9,8 @@ namespace Taskie.Domain.Entities
         public UserEntity User { get; set; }
         public int AchievementId { get; set; }
         public AchievementEntity Achievement { get; set; }
-        public DateTime CreatedAt { get; set; } = DateTime.Now;
-        public DateTime UpdatedAt { get; set; }
+        public DateTime CreatedAt { get; set; } = DateTime.Parse(DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss"));
+        public DateTime? UpdatedAt { get; set; }
 
     }
 }

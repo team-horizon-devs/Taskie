@@ -13,6 +13,11 @@ namespace Taskie.Infra.Data.Repository
     {
         private readonly TaskieContext _context;
 
+        public UserPointRepository(TaskieContext context)
+        {
+            _context = context;
+        }
+
         public async Task<UserPointEntity> CreateAsync(UserPointEntity userPointEntity)
         {
             try
