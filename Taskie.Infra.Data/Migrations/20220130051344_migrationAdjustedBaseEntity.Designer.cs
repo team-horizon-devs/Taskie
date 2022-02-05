@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Taskie.Infra.Data.Context;
 
 namespace Taskie.Infra.Data.Migrations
 {
     [DbContext(typeof(TaskieContext))]
-    partial class TaskieContextModelSnapshot : ModelSnapshot
+    [Migration("20220130051344_migrationAdjustedBaseEntity")]
+    partial class migrationAdjustedBaseEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -277,9 +279,6 @@ namespace Taskie.Infra.Data.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<string>("Desciption")
-                        .HasColumnType("longtext");
-
                     b.Property<string>("Src")
                         .HasColumnType("longtext");
 
@@ -289,6 +288,37 @@ namespace Taskie.Infra.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Avatars");
+                });
+
+            modelBuilder.Entity("Taskie.Domain.Entities.FinishedInTime", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("Priority1")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Priority2")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Priority3")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("UserId1")
+                        .IsRequired()
+                        .HasColumnType("varchar(255)");
+
+                    b.HasKey("UserId");
+
+                    b.HasIndex("UserId1");
+
+                    b.ToTable("FinishedsInTime");
                 });
 
             modelBuilder.Entity("Taskie.Domain.Entities.Task", b =>
@@ -493,6 +523,17 @@ namespace Taskie.Infra.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("Achievement");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Taskie.Domain.Entities.FinishedInTime", b =>
+                {
+                    b.HasOne("Taskie.Domain.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId1")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("User");
                 });

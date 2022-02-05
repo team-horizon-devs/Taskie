@@ -1,6 +1,6 @@
 ﻿namespace Taskie.Domain.Entities
 {
-    public class Trophy : BaseEntity
+    public class TrophyEntity : BaseEntity
 
     {
         public string Name { get; set; }

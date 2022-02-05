@@ -6,14 +6,13 @@ namespace Taskie.Infra.Data.Context
 {
     public class TaskieContext : IdentityDbContext
     {
-        public DbSet<Achievement> Achievements { get; set; }
-        public DbSet<AchievementUser> AchievementsUsers { get; set; }
-        public DbSet<Avatar> Avatars { get; set; }
-        public DbSet<FinishedInTime> FinishedsInTime { get; set; }
-        public DbSet<Task> Tasks { get; set; }
-        public DbSet<Trophy> Trophies { get; set; }
-        public DbSet<TrophyUser> TrophiesUsers { get; set; }
-        public DbSet<UserPoint> UsersPoints { get; set; }
+        public DbSet<AchievementEntity> Achievements { get; set; }
+        public DbSet<AchievementUserEntity> AchievementsUsers { get; set; }
+        public DbSet<AvatarEntity> Avatars { get; set; }
+        public DbSet<TaskEntity> Tasks { get; set; }
+        public DbSet<TrophyEntity> Trophies { get; set; }
+        public DbSet<TrophyUserEntity> TrophiesUsers { get; set; }
+        public DbSet<UserPointEntity> UsersPoints { get; set; }
 
         public TaskieContext(DbContextOptions<TaskieContext> options) : base(options)
         {
@@ -24,11 +23,9 @@ namespace Taskie.Infra.Data.Context
         {
             base.OnModelCreating(builder);
 
-            builder.Entity<TrophyUser>().HasKey(tu => new {tu.UserId, tu.TrophyId});
-            builder.Entity<AchievementUser>().HasKey(au => new { au.UserId, au.AchievementId });
-            builder.Entity<UserPoint>().HasKey(up => new { up.UserId});
-            builder.Entity<FinishedInTime>().HasKey(ft => new { ft.UserId });
-
+            builder.Entity<TrophyUserEntity>().HasKey(tu => new {tu.UserId, tu.TrophyId});
+            builder.Entity<AchievementUserEntity>().HasKey(au => new { au.UserId, au.AchievementId });
+            builder.Entity<UserPointEntity>().HasKey(up => new { up.UserId});
         }
 
     }

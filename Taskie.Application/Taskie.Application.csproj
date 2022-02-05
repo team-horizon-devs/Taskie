@@ -18,7 +18,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Taskie.Domain\Taskie.Domain.csproj" />
+    <ProjectReference Include="..\Taskie.Infra.CrossCutting\Taskie.Infra.CrossCutting.csproj" />
     <ProjectReference Include="..\Taskie.Infra.Data\Taskie.Infra.Data.csproj" />
   </ItemGroup>
-
+  
 </Project>
