@@ -46,12 +46,5 @@ namespace Taskie.Infra.Data.Repository
             return await query.AsNoTracking().ToListAsync();
         }
 
-<<<<<<< HEAD
-=======
-        public async Task<bool> SaveChangesAsync()
-        {
-            return (await _context.SaveChangesAsync() > 0);
-        }
->>>>>>> 779c1d8207ee8f34959dfbb319d9e6836ab62cd2
     }
 }
