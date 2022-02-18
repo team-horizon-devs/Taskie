@@ -9,7 +9,7 @@ namespace Taskie.Domain.Entities
         public int TrophyId { get; set; }
         public TrophyEntity Tropy { get; set; }
         public UserEntity User { get; set; }
-        public DateTime CreatedAt { get; set; } = DateTime.Now;
-        public DateTime UpdatedAt { get; set; }
+        public DateTime CreatedAt { get; set; } = DateTime.Parse(DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss"));
+        public DateTime? UpdatedAt { get; set; } = null;
     }
 }

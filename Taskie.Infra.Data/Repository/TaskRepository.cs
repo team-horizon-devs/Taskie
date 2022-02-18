@@ -22,7 +22,6 @@ namespace Taskie.Infra.Data.Repository
         public async Task<IEnumerable<TaskEntity>> GetByFinishAsync(bool test)
         {
             IQueryable<TaskEntity> query = _repo;
-            query = query.Where(T => T.Finished == test);
             return await query.AsNoTracking().ToListAsync();
         }
 

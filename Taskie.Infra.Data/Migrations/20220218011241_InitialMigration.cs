@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Taskie.Infra.Data.Migrations
 {
-    public partial class firstMigration : Migration
+    public partial class InitialMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -17,15 +17,17 @@ namespace Taskie.Infra.Data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(type: "longtext", nullable: true)
+                    Name = table.Column<string>(type: "varchar(60)", maxLength: 60, nullable: false)
                         .Annotation("MySql:CharSet", "latin1"),
-                    Description = table.Column<string>(type: "longtext", nullable: true)
+                    Description = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "latin1"),
+                    Image = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "latin1"),
                     Priority1 = table.Column<int>(type: "int", nullable: false),
                     Priority2 = table.Column<int>(type: "int", nullable: false),
                     Priority3 = table.Column<int>(type: "int", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false)
+                    UpdatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -58,10 +60,12 @@ namespace Taskie.Infra.Data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Src = table.Column<string>(type: "longtext", nullable: true)
+                    Desciption = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "latin1"),
+                    Image = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "latin1"),
                     CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false)
+                    UpdatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -75,13 +79,15 @@ namespace Taskie.Infra.Data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(type: "longtext", nullable: true)
+                    Name = table.Column<string>(type: "varchar(60)", maxLength: 60, nullable: false)
                         .Annotation("MySql:CharSet", "latin1"),
-                    Description = table.Column<string>(type: "longtext", nullable: true)
+                    Description = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "latin1"),
+                    Image = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "latin1"),
                     PricePoints = table.Column<int>(type: "int", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false)
+                    UpdatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -122,9 +128,11 @@ namespace Taskie.Infra.Data.Migrations
                         .Annotation("MySql:CharSet", "latin1"),
                     Discriminator = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "latin1"),
+                    Name = table.Column<string>(type: "varchar(80)", maxLength: 80, nullable: true)
+                        .Annotation("MySql:CharSet", "latin1"),
                     Active = table.Column<bool>(type: "tinyint(1)", nullable: true),
-                    LastLogin = table.Column<DateTime>(type: "datetime(6)", nullable: true),
                     AvatarId = table.Column<int>(type: "int", nullable: true),
+                    Point = table.Column<int>(type: "int", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: true),
                     UpdatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: true),
                     UserName = table.Column<string>(type: "varchar(256)", maxLength: 256, nullable: true)
@@ -170,7 +178,7 @@ namespace Taskie.Infra.Data.Migrations
                         .Annotation("MySql:CharSet", "latin1"),
                     AchievementId = table.Column<int>(type: "int", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false)
+                    UpdatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -293,49 +301,23 @@ namespace Taskie.Infra.Data.Migrations
                 .Annotation("MySql:CharSet", "latin1");
 
             migrationBuilder.CreateTable(
-                name: "FinishedsInTime",
-                columns: table => new
-                {
-                    UserId = table.Column<string>(type: "varchar(255)", nullable: false)
-                        .Annotation("MySql:CharSet", "latin1"),
-                    Priority1 = table.Column<int>(type: "int", nullable: false),
-                    Priority2 = table.Column<int>(type: "int", nullable: false),
-                    Priority3 = table.Column<int>(type: "int", nullable: false),
-                    UserId1 = table.Column<string>(type: "varchar(255)", nullable: false)
-                        .Annotation("MySql:CharSet", "latin1"),
-                    CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_FinishedsInTime", x => x.UserId);
-                    table.ForeignKey(
-                        name: "FK_FinishedsInTime_AspNetUsers_UserId1",
-                        column: x => x.UserId1,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                })
-                .Annotation("MySql:CharSet", "latin1");
-
-            migrationBuilder.CreateTable(
                 name: "Tasks",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Tittle = table.Column<string>(type: "longtext", nullable: true)
+                    Tittle = table.Column<string>(type: "varchar(80)", maxLength: 80, nullable: false)
                         .Annotation("MySql:CharSet", "latin1"),
                     Description = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "latin1"),
                     Priority = table.Column<int>(type: "int", nullable: false),
-                    Finished = table.Column<bool>(type: "tinyint(1)", nullable: false),
-                    FinishedInTime = table.Column<bool>(type: "tinyint(1)", nullable: false),
-                    Deadline = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    Finished = table.Column<DateTime>(type: "datetime(6)", nullable: true),
+                    FinishedInTime = table.Column<bool>(type: "tinyint(1)", nullable: true),
+                    Deadline = table.Column<DateTime>(type: "datetime(6)", nullable: true),
                     UserId = table.Column<string>(type: "varchar(255)", nullable: true)
                         .Annotation("MySql:CharSet", "latin1"),
                     CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false)
+                    UpdatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -356,8 +338,9 @@ namespace Taskie.Infra.Data.Migrations
                     UserId = table.Column<string>(type: "varchar(255)", nullable: false)
                         .Annotation("MySql:CharSet", "latin1"),
                     TrophyId = table.Column<int>(type: "int", nullable: false),
+                    TropyId = table.Column<int>(type: "int", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false)
+                    UpdatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -369,37 +352,18 @@ namespace Taskie.Infra.Data.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_TrophiesUsers_Trophies_TrophyId",
-                        column: x => x.TrophyId,
+                        name: "FK_TrophiesUsers_Trophies_TropyId",
+                        column: x => x.TropyId,
                         principalTable: "Trophies",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 })
                 .Annotation("MySql:CharSet", "latin1");
 
-            migrationBuilder.CreateTable(
-                name: "UsersPoints",
-                columns: table => new
-                {
-                    UserId = table.Column<string>(type: "varchar(255)", nullable: false)
-                        .Annotation("MySql:CharSet", "latin1"),
-                    Points = table.Column<int>(type: "int", nullable: false),
-                    UserId1 = table.Column<string>(type: "varchar(255)", nullable: false)
-                        .Annotation("MySql:CharSet", "latin1"),
-                    CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_UsersPoints", x => x.UserId);
-                    table.ForeignKey(
-                        name: "FK_UsersPoints_AspNetUsers_UserId1",
-                        column: x => x.UserId1,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                })
-                .Annotation("MySql:CharSet", "latin1");
+            migrationBuilder.InsertData(
+                table: "Avatars",
+                columns: new[] { "Id", "CreatedAt", "Desciption", "Image", "UpdatedAt" },
+                values: new object[] { 1, new DateTime(2022, 2, 18, 1, 12, 40, 0, DateTimeKind.Unspecified), "Default Image", "https://live.staticflickr.com/65535/51885254260_cb60cd62df_t.jpg", null });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AchievementsUsers_AchievementId",
@@ -449,24 +413,14 @@ namespace Taskie.Infra.Data.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_FinishedsInTime_UserId1",
-                table: "FinishedsInTime",
-                column: "UserId1");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Tasks_UserId",
                 table: "Tasks",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TrophiesUsers_TrophyId",
+                name: "IX_TrophiesUsers_TropyId",
                 table: "TrophiesUsers",
-                column: "TrophyId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_UsersPoints_UserId1",
-                table: "UsersPoints",
-                column: "UserId1");
+                column: "TropyId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -490,16 +444,10 @@ namespace Taskie.Infra.Data.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "FinishedsInTime");
-
-            migrationBuilder.DropTable(
                 name: "Tasks");
 
             migrationBuilder.DropTable(
                 name: "TrophiesUsers");
-
-            migrationBuilder.DropTable(
-                name: "UsersPoints");
 
             migrationBuilder.DropTable(
                 name: "Achievements");
@@ -508,10 +456,10 @@ namespace Taskie.Infra.Data.Migrations
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "Trophies");
+                name: "AspNetUsers");
 
             migrationBuilder.DropTable(
-                name: "AspNetUsers");
+                name: "Trophies");
 
             migrationBuilder.DropTable(
                 name: "Avatars");

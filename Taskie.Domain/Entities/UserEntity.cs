@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Taskie.Domain.Entities
@@ -10,10 +11,12 @@ namespace Taskie.Domain.Entities
         [MaxLength(80)]
         public string Name { get; set; }
         public bool Active { get; set; } = true;
-        public int AvatarId { get; set; }
+        public int AvatarId { get; set; } = 1;
         public AvatarEntity Avatar { get; set; }
-        public DateTime CreatedAt { get; set; } = DateTime.Now;
-        public DateTime UpdatedAt { get; set; }
+        public int Point { get; set; } = 0;
+        public IEnumerable<AchievementUserEntity> AchievementUsers { get; set; }
+        public DateTime CreatedAt { get; set; } = DateTime.Parse(DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss"));
+        public DateTime? UpdatedAt { get; set; } = null;
 
     }
 }

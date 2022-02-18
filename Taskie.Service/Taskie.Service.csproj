@@ -5,6 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Taskie.Application\Taskie.Application.csproj" />
+    <ProjectReference Include="..\Taskie.Domain\Taskie.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="Services\" />
   </ItemGroup>
 
