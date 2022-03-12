@@ -11,7 +11,6 @@ using System.Net.Mail;
 using System.Net;
 using AutoMapper;
 using System;
-using Taskie.Infra.Data.Context;
 
 namespace Taskie.Application.Controller
 {
@@ -21,15 +20,15 @@ namespace Taskie.Application.Controller
     {
         private readonly UserManager<UserEntity> _userManager;
         private readonly IMapper _mapper;
-        private readonly TaskieContext _context;
         private readonly EmailSettings _mailSettings;
+        private readonly IUserRepository _repository;
 
         public UserController(UserManager<UserEntity> userManager, IMapper mapper,
-            TaskieContext context, EmailSettings emailSettings)
+            IUserRepository repository, EmailSettings emailSettings)
         {
             _userManager = userManager;
             _mapper = mapper;
-            _context = context;
+            _repository = repository;
             _mailSettings = emailSettings;
         }
 
@@ -37,16 +36,7 @@ namespace Taskie.Application.Controller
         public async Task<IActionResult> GetUser(string id)
         {
 
-            var user = await _context.User.Include(u => u.Avatar)
-                .Include(u => u.AchievementUsers).ThenInclude(au => au.Achievement).FirstOrDefaultAsync(u => u.Id == id);
-
-            if(user == null)
-            {
-                return NotFound();
-            }
-            
-
-            return Ok(_mapper.Map<UserDto>(user));
+            return Ok(await _repository.GetUserByAsync(id));
         }
 
         [HttpGet("activate")]

@@ -1,9 +1,11 @@
-﻿namespace Taskie.Domain.Dto.Achievement
+﻿namespace Taskie.Domain.Dto.Trophy
 {
-    public class AchievementToUserDto
+    public class TrophyToUserDto
     {
         public string Name { get; set; }
+
         public string Description { get; set; }
+
         public string Image { get; set; }
     }
 }

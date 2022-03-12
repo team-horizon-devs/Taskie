@@ -1,5 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
-using System;
+﻿using System;
+using Microsoft.AspNetCore.Identity;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -14,7 +14,8 @@ namespace Taskie.Domain.Entities
         public int AvatarId { get; set; } = 1;
         public AvatarEntity Avatar { get; set; }
         public int Point { get; set; } = 0;
-        public IEnumerable<AchievementUserEntity> AchievementUsers { get; set; }
+        public IEnumerable<TrophyUserEntity> TrophiesUser { get; set; }
+        public IEnumerable<AchievementUserEntity> AchievementsUser { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.Parse(DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss"));
         public DateTime? UpdatedAt { get; set; } = null;
 

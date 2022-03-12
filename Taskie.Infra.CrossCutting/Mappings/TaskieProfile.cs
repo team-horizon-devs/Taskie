@@ -4,6 +4,8 @@ using Taskie.Domain.Dto.Avatar;
 using Taskie.Domain.Entities;
 using Taskie.Domain.Dto.AchievementUser;
 using Taskie.Domain.Dto.Achievement;
+using Taskie.Domain.Dto.Trophy;
+using Taskie.Domain.Dto.TrophyUser;
 
 namespace Taskie.Infra.CrossCutting.Mappings
 {
@@ -17,7 +19,8 @@ namespace Taskie.Infra.CrossCutting.Mappings
             CreateMap<AvatarEntity, AvatarToUserDto>().ReverseMap();
             CreateMap<AchievementUserEntity, AchievementUserToUserDto>().ReverseMap();
             CreateMap<AchievementEntity, AchievementToUserDto>().ReverseMap();
-
+            CreateMap<TrophyUserEntity, TrophyUserToUserDto>().ReverseMap();
+            CreateMap<TrophyEntity, TrophyToUserDto>().ReverseMap();
         }
     }
 }

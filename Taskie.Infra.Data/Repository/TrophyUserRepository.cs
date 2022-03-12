@@ -36,7 +36,7 @@ namespace Taskie.Infra.Data.Repository
         public async Task<IEnumerable<TrophyUserEntity>> GetAllTrophiesByUserIdAsync(string idUser)
         {
             IQueryable<TrophyUserEntity> query = _context.TrophiesUsers;
-            query = query.Include(tu => tu.Tropy).Where(tu => tu.UserId == idUser);
+            query = query.Include(tu => tu.Trophy).Where(tu => tu.UserId == idUser);
 
             return await query.AsNoTracking().ToListAsync();
         }
