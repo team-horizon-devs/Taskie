@@ -2,7 +2,7 @@
 
 namespace Taskie.Domain.Dto.User
 {
-    public class UserDtoCreate
+    public class UserCreateDto
     {
         [Required(ErrorMessage = "Nome é um campo obrigatório")]
         [StringLength(80, ErrorMessage = "Nome deve ter no máximo {1} caracteres.")]

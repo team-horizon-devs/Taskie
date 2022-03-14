@@ -56,7 +56,7 @@ namespace Taskie.Application.Controller
         }
 
         [HttpPost("register")]
-        public async Task<IActionResult> Register(UserDtoCreate userDto)
+        public async Task<IActionResult> Register(UserCreateDto userDto)
         {
             try
             {

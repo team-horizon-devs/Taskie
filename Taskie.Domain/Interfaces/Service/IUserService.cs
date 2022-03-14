@@ -7,7 +7,13 @@ namespace Taskie.Domain.Interfaces.Service
 {
     public interface IUserService
     {
-        Task<UserDtoCreate> Get(String id);
-        Task<IEnumerable<UserDtoCreate>> GetAll();
+        Task<UserDto> GetById(string id);
+        Task<IEnumerable<UserDto>> GetAll();
+        Task<bool> CreateUser(UserCreateDto user);
+        Task<bool> UpdateUser(UserUpdateDto user);
+        Task<bool> DisabledUser(string id);
+        Task<bool> SumPonits(UserUpdateDto user);
+        Task<bool> UpdateAvatar(UserUpdateDto user);
+        Task<bool> ConfirmEmail();
     }
 }
