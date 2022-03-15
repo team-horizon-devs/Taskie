@@ -13,6 +13,7 @@
 	<ItemGroup>
 		<ProjectReference Include="..\Taskie.Domain\Taskie.Domain.csproj" />
 		<ProjectReference Include="..\Taskie.Infra.Data\Taskie.Infra.Data.csproj" />
+		<ProjectReference Include="..\Taskie.Service\Taskie.Service.csproj" />
 	</ItemGroup>
 
 </Project>

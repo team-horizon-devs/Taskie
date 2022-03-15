@@ -1,4 +1,4 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Taskie.Domain.Dto.User;
@@ -9,11 +9,11 @@ namespace Taskie.Domain.Interfaces.Service
     {
         Task<UserDto> GetById(string id);
         Task<IEnumerable<UserDto>> GetAll();
-        Task<bool> CreateUser(UserCreateDto user);
-        Task<bool> UpdateUser(UserUpdateDto user);
-        Task<bool> DisabledUser(string id);
-        Task<bool> SumPonits(UserUpdateDto user);
-        Task<bool> UpdateAvatar(UserUpdateDto user);
+        Task<IdentityResult> CreateUser(UserCreateDto user);
+        Task<IdentityResult> UpdateUser(UserUpdateDto user);
+        Task<IdentityResult> DisabledUser(string id);
+        Task<IdentityResult> SumPonits(UserUpdateDto user);
+        Task<IdentityResult> UpdateAvatar(UserUpdateDto user);
         Task<bool> ConfirmEmail();
     }
 }
