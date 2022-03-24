@@ -228,6 +228,17 @@ namespace Taskie.Infra.Data.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
+<<<<<<< HEAD
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(60)
+                        .HasColumnType("varchar(60)");
+=======
+                    b.Property<string>("Image")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+>>>>>>> develop
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(60)
@@ -281,9 +292,14 @@ namespace Taskie.Infra.Data.Migrations
                         .HasColumnType("datetime(6)");
 
                     b.Property<string>("Desciption")
+                        .IsRequired()
                         .HasColumnType("longtext");
 
+<<<<<<< HEAD
                     b.Property<string>("Src")
+=======
+                    b.Property<string>("Image")
+>>>>>>> develop
                         .IsRequired()
                         .HasColumnType("longtext");
 
@@ -293,6 +309,15 @@ namespace Taskie.Infra.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Avatars");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedAt = new DateTime(2022, 3, 23, 1, 32, 7, 0, DateTimeKind.Unspecified),
+                            Desciption = "Default Image",
+                            Image = "https://live.staticflickr.com/65535/51885254260_cb60cd62df_t.jpg"
+                        });
                 });
 
             modelBuilder.Entity("Taskie.Domain.Entities.TaskEntity", b =>
@@ -304,16 +329,16 @@ namespace Taskie.Infra.Data.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<DateTime>("Deadline")
+                    b.Property<DateTime?>("Deadline")
                         .HasColumnType("datetime(6)");
 
                     b.Property<string>("Description")
                         .HasColumnType("longtext");
 
-                    b.Property<bool>("Finished")
-                        .HasColumnType("tinyint(1)");
+                    b.Property<DateTime?>("Finished")
+                        .HasColumnType("datetime(6)");
 
-                    b.Property<bool>("FinishedInTime")
+                    b.Property<bool?>("FinishedInTime")
                         .HasColumnType("tinyint(1)");
 
                     b.Property<int>("Priority")
@@ -350,6 +375,17 @@ namespace Taskie.Infra.Data.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
+<<<<<<< HEAD
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(60)
+                        .HasColumnType("varchar(60)");
+=======
+                    b.Property<string>("Image")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+>>>>>>> develop
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(60)
@@ -377,9 +413,12 @@ namespace Taskie.Infra.Data.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime(6)");
 
+<<<<<<< HEAD
                     b.Property<int?>("TropyId")
                         .HasColumnType("int");
 
+=======
+>>>>>>> develop
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime(6)");
 
@@ -390,6 +429,7 @@ namespace Taskie.Infra.Data.Migrations
                     b.ToTable("TrophiesUsers");
                 });
 
+<<<<<<< HEAD
             modelBuilder.Entity("Taskie.Domain.Entities.UserPointEntity", b =>
                 {
                     b.Property<string>("UserId")
@@ -415,6 +455,8 @@ namespace Taskie.Infra.Data.Migrations
                     b.ToTable("UsersPoints");
                 });
 
+=======
+>>>>>>> develop
             modelBuilder.Entity("Taskie.Domain.Entities.UserEntity", b =>
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
@@ -428,9 +470,17 @@ namespace Taskie.Infra.Data.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<DateTime>("LastLogin")
-                        .HasColumnType("datetime(6)");
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(80)
+                        .HasColumnType("varchar(80)");
 
+<<<<<<< HEAD
+=======
+                    b.Property<int>("Point")
+                        .HasColumnType("int");
+
+>>>>>>> develop
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime(6)");
 
@@ -499,7 +549,11 @@ namespace Taskie.Infra.Data.Migrations
                         .IsRequired();
 
                     b.HasOne("Taskie.Domain.Entities.UserEntity", "User")
+<<<<<<< HEAD
                         .WithMany()
+=======
+                        .WithMany("AchievementsUser")
+>>>>>>> develop
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -520,12 +574,20 @@ namespace Taskie.Infra.Data.Migrations
 
             modelBuilder.Entity("Taskie.Domain.Entities.TrophyUserEntity", b =>
                 {
+<<<<<<< HEAD
                     b.HasOne("Taskie.Domain.Entities.TrophyEntity", "Tropy")
+=======
+                    b.HasOne("Taskie.Domain.Entities.TrophyEntity", "Trophy")
+>>>>>>> develop
                         .WithMany()
                         .HasForeignKey("TropyId");
 
                     b.HasOne("Taskie.Domain.Entities.UserEntity", "User")
+<<<<<<< HEAD
                         .WithMany()
+=======
+                        .WithMany("TrophiesUser")
+>>>>>>> develop
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -535,26 +597,36 @@ namespace Taskie.Infra.Data.Migrations
                     b.Navigation("User");
                 });
 
+<<<<<<< HEAD
             modelBuilder.Entity("Taskie.Domain.Entities.UserPointEntity", b =>
                 {
                     b.HasOne("Taskie.Domain.Entities.UserEntity", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId1")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
+=======
             modelBuilder.Entity("Taskie.Domain.Entities.UserEntity", b =>
                 {
                     b.HasOne("Taskie.Domain.Entities.AvatarEntity", "Avatar")
+>>>>>>> develop
                         .WithMany()
                         .HasForeignKey("AvatarId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Avatar");
+                });
+
+            modelBuilder.Entity("Taskie.Domain.Entities.UserEntity", b =>
+                {
+<<<<<<< HEAD
+                    b.HasOne("Taskie.Domain.Entities.AvatarEntity", "Avatar")
+                        .WithMany()
+                        .HasForeignKey("AvatarId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+=======
+                    b.Navigation("AchievementsUser");
+>>>>>>> develop
+
+                    b.Navigation("TrophiesUser");
                 });
 #pragma warning restore 612, 618
         }

@@ -13,6 +13,12 @@ namespace Taskie.Domain.Entities
         public string Description { get; set; }
 
         [Required]
+<<<<<<< HEAD
+=======
+        public string Image { get; set; }
+
+        [Required]
+>>>>>>> develop
         public int PricePoints { get; set; }
     }
 }

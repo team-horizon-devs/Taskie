@@ -1,12 +1,16 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using Taskie.Domain.Interfaces.Service;
+using Taskie.Service.Services;
 
 namespace Taskie.Infra.CrossCutting.DependencyInjection
 {
     public static class ConfigureService
     {
-        public static IServiceCollection AddServices(this IServiceCollection service)
+        public static IServiceCollection AddServices(this IServiceCollection services)
         {
-            return service;
+            services.AddScoped<IUserService, UserService>();
+
+            return services;
         }
     }
 }
