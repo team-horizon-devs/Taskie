@@ -15,6 +15,7 @@ namespace Taskie.Domain.Dto.User
         public string Email { get; set; }
         public string PhoneNumber { get; set; }
         public int Point { get; set; }
+        public bool EmailConfirmed { get; set; }
         public IEnumerable<AchievementUserToUserDto> AchievementsUser { get; set; }
         public IEnumerable<TrophyUserToUserDto> TrophiesUser { get; set; }
         public AvatarToUserDto Avatar { get; set; }

@@ -1,15 +1,9 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
+﻿using Taskie.Domain.Interfaces.Service;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using Taskie.Domain.Dto.User;
-using Taskie.Domain.Entities;
-using Taskie.Domain.Interfaces.Repository;
-using Taskie.Domain.Models;
-using Microsoft.EntityFrameworkCore;
-using System.Net.Mail;
 using System.Net;
-using AutoMapper;
 using System;
 
 namespace Taskie.Application.Controller
@@ -18,40 +12,65 @@ namespace Taskie.Application.Controller
     [ApiController]
     public class UserController : ControllerBase
     {
-        private readonly UserManager<UserEntity> _userManager;
-        private readonly IMapper _mapper;
-        private readonly EmailSettings _mailSettings;
-        private readonly IUserRepository _repository;
+        private readonly IUserService _userService;
 
-        public UserController(UserManager<UserEntity> userManager, IMapper mapper,
-            IUserRepository repository, EmailSettings emailSettings)
+
+        public UserController(IUserService userService)
         {
-            _userManager = userManager;
-            _mapper = mapper;
-            _repository = repository;
-            _mailSettings = emailSettings;
+            _userService = userService;
         }
 
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetUser(string id)
+        [HttpGet("id/{id}")]
+        public async Task<IActionResult> GetUserById(string id)
         {
+            try
+            { 
+                var user = await _userService.GetById(id);
 
-            return Ok(await _repository.GetUserByAsync(id));
+                if(user != null)return Ok(user);
+
+                return NotFound("Usuário não encontrado");
+            }
+            catch (ArgumentException e)
+            {
+                return StatusCode((int)HttpStatusCode.InternalServerError, e.Message);
+            }
+        }
+
+        [HttpGet("username/{userName}")]
+        public async Task<IActionResult> GetUserByUserName(string userName)
+        {
+            try
+            { 
+                var user = await _userService.GetByUserName(userName);
+
+                if (user != null) return Ok(user);
+
+                return NotFound("Usuário não encontrado");
+            }
+            catch (ArgumentException e)
+            {
+                return StatusCode((int)HttpStatusCode.InternalServerError, e.Message);
+            }
         }
 
         [HttpGet("activate")]
-        public IActionResult ConfirmEmail(string userid, string token)
+        public async Task<IActionResult> ConfirmEmail(string userId, string token)
         {
-            var user = _userManager.FindByIdAsync(userid).Result;
-            IdentityResult result = _userManager.ConfirmEmailAsync(user, token).Result;
+            try
+            { 
+                UserDto userVerification = await _userService.GetById(userId);
+                if (userVerification.EmailConfirmed) return Ok("Seu email já foi confirmado, pode usar a vontade :D");
 
-            if (result.Succeeded)
-            {
-                return Ok("Success");
-            }
-            else
-            {
+                UserDto user = await _userService.ConfirmEmail(userId, token);
+
+                if (user != null) return Ok(user);
+ 
                 return BadRequest();
+            }
+            catch (ArgumentException e)
+            {
+                return StatusCode((int)HttpStatusCode.InternalServerError, e.Message);
             }
         }
 
@@ -60,38 +79,29 @@ namespace Taskie.Application.Controller
         {
             try
             {
-                var user = await _userManager.FindByNameAsync(userDto.UserName);
+                var user = await _userService.GetByUserName(userDto.UserName);
 
                 if(user == null)
                 {
-                    user = _mapper.Map<UserEntity>(userDto);
 
-                    var result = await _userManager.CreateAsync(user, userDto.Password);
+                    var createdUser = await _userService.CreateUser(userDto);
 
-                    if(result.Succeeded)
+                    if(createdUser != null)
                     {
-                        
-                        string confirmationToken = _userManager.GenerateEmailConfirmationTokenAsync(user).Result;
+
+                        string confirmationToken = await _userService.GenerateConfirmedToken(createdUser.Id);
 
                         string confirmationLink = Url.Action("ConfirmEmail",
                           "user", new
                           {
-                              userid = user.Id,
+                              userid = createdUser.Id,
                               token = confirmationToken
                           },
                            protocol: HttpContext.Request.Scheme);
 
-                        SmtpClient client = new(_mailSettings.Host, _mailSettings.Port);
+                        _userService.SendEmailConfirmed(createdUser, confirmationLink);
 
-                        client.UseDefaultCredentials = false;
-                        client.Credentials = new NetworkCredential(_mailSettings.Email, _mailSettings.Password);
-                        client.EnableSsl = true;
-
-                        client.Send(_mailSettings.Email, user.Email,
-                               "Email de confirmaçaõ Taskie!",
-                           $"Clique no link para confirmar seu email {confirmationLink}");
-
-                        return Created($"Usuário cadastrado com sucesso", _mapper.Map<UserDto>(user));
+                        return Created($"Usuário cadastrado com sucesso", createdUser);
                     }
                 }
 

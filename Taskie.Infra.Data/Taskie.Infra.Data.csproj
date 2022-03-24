@@ -15,8 +15,4 @@
     <ProjectReference Include="..\Taskie.Domain\Taskie.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Migrations\" />
-  </ItemGroup>
-
 </Project>

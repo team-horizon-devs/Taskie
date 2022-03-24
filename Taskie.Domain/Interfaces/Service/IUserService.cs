@@ -1,19 +1,22 @@
-﻿using Microsoft.AspNetCore.Identity;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Taskie.Domain.Dto.User;
+using Taskie.Domain.Entities;
 
 namespace Taskie.Domain.Interfaces.Service
 {
     public interface IUserService
     {
         Task<UserDto> GetById(string id);
+        Task<UserDto> GetByUserName(string userName);
         Task<IEnumerable<UserDto>> GetAll();
-        Task<IdentityResult> CreateUser(UserCreateDto user);
-        Task<IdentityResult> UpdateUser(UserUpdateDto user);
-        Task<IdentityResult> DisabledUser(string id);
-        Task<IdentityResult> SumPonits(UserUpdateDto user);
-        Task<IdentityResult> UpdateAvatar(UserUpdateDto user);
-        Task<bool> ConfirmEmail();
+        Task<UserDto> CreateUser(UserCreateDto userCreateDto);
+        Task<UserEntity> UpdateUser(UserUpdateDto userUpdateDto);
+        Task<UserEntity> DisabledUser(string id);
+        Task<UserEntity> SumPonits(UserUpdateDto user);
+        Task<UserEntity> UpdateAvatar(UserUpdateDto user);
+        Task<UserDto> ConfirmEmail(string userid, string token);
+        void SendEmailConfirmed(UserDto user, string confirmationLink);
+        Task<string> GenerateConfirmedToken(string userId);
     }
 }

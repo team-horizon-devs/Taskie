@@ -7,7 +7,9 @@ namespace Taskie.Domain.Interfaces.Repository
     public interface IUserRepository
     {
 
-        Task<UserEntity> GetUserByAsync(string id);
+        Task<UserEntity> GetUserByIdAsync(string id);
+
+        Task<UserEntity> GetUserByUserNameAsync(string userName);
 
         Task<IEnumerable<UserEntity>> GetAllUserAsync();
 

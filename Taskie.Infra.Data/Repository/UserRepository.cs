@@ -16,7 +16,7 @@ namespace Taskie.Infra.Data.Repository
             _context = context;
         }
 
-        public async Task<UserEntity> GetUserByAsync(string id)
+        public async Task<UserEntity> GetUserByIdAsync(string id)
         {
             var user = await _context.User.Include(u => u.Avatar)
                 .Include(u => u.TrophiesUser).ThenInclude(tu => tu.Trophy)
@@ -34,5 +34,14 @@ namespace Taskie.Infra.Data.Repository
             return user;
         }
 
+        public async Task<UserEntity> GetUserByUserNameAsync(string userName)
+        {
+            var user = await _context.User.Include(u => u.Avatar)
+            .Include(u => u.TrophiesUser).ThenInclude(tu => tu.Trophy)
+            .Include(u => u.AchievementsUser).ThenInclude(au => au.Achievement)
+            .FirstOrDefaultAsync(u => u.NormalizedUserName == userName.ToUpper());
+
+            return user;
+        }
     }
 }
