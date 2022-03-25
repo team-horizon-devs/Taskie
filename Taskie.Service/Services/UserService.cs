@@ -88,9 +88,15 @@ namespace Taskie.Service.Services
                $"Clique no link para confirmar seu email {confirmationLink}");
         }
 
-        public Task<UserEntity> SumPonits(UserUpdateDto user)
+        public async Task<UserDto> AddPonits(string userId, int points)
         {
-            throw new NotImplementedException();
+            var user = await _userRepository.GetUserByIdAsync(userId);
+            user.Point += points;
+            var result = await _userManager.UpdateAsync(user);
+
+            if (result.Succeeded) return _mapper.Map<UserDto>(user);
+
+            throw new InvalidOperationException("Ocorreu um erro ao confirmar o Email!");
         }
 
         public Task<UserEntity> UpdateAvatar(UserUpdateDto user)

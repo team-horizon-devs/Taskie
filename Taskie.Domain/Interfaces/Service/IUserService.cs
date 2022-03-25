@@ -13,7 +13,7 @@ namespace Taskie.Domain.Interfaces.Service
         Task<UserDto> CreateUser(UserCreateDto userCreateDto);
         Task<UserEntity> UpdateUser(UserUpdateDto userUpdateDto);
         Task<UserEntity> DisabledUser(string id);
-        Task<UserEntity> SumPonits(UserUpdateDto user);
+        Task<UserDto> AddPonits(string userId, int points);
         Task<UserEntity> UpdateAvatar(UserUpdateDto user);
         Task<UserDto> ConfirmEmail(string userid, string token);
         void SendEmailConfirmed(UserDto user, string confirmationLink);

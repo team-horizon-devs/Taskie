@@ -112,5 +112,15 @@ namespace Taskie.Application.Controller
                 return this.StatusCode(StatusCodes.Status500InternalServerError, $"ERRO {e.Message}");
             }
         }
+
+        [HttpPatch("addpoints/{id}")]
+        public async Task<IActionResult> AddPoints(string id)
+        {
+            var user = await _userService.AddPonits(id, -3);
+
+            if(user != null) return Ok(user);
+
+            return BadRequest("Erro ao adicionar os pontos");
+        }
     }
 }
