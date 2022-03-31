@@ -19,10 +19,11 @@ namespace Taskie.Domain.Dto.User
 
         public string PhoneNumber { get; set; }
 
+        [Required(ErrorMessage = "Senha é um campo obrigatório")]
         [DataType(DataType.Password)]
         public string Password { get; set; }
 
-        [Compare("Password")]
+        [Compare("Password", ErrorMessage = "Senhas não conferem")]
         [DataType(DataType.Password)]
         public string ConfirmPassword { get; set; }
 

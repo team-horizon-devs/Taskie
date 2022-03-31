@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Taskie.Domain.Dto.User;
 using System.Net;
 using System;
+using Microsoft.AspNetCore.Identity;
 
 namespace Taskie.Application.Controller
 {
@@ -62,11 +63,11 @@ namespace Taskie.Application.Controller
                 UserDto userVerification = await _userService.GetById(userId);
                 if (userVerification.EmailConfirmed) return Ok("Seu email já foi confirmado, pode usar a vontade :D");
 
-                UserDto user = await _userService.ConfirmEmail(userId, token);
+                bool result = await _userService.ConfirmEmail(userId, token);
 
-                if (user != null) return Ok(user);
+                if (result) return Ok("Email confirmado com sucesso!");
  
-                return BadRequest();
+                return BadRequest("Erro ao confirmar email :(");
             }
             catch (ArgumentException e)
             {
@@ -113,14 +114,14 @@ namespace Taskie.Application.Controller
             }
         }
 
-        [HttpPatch("addpoints/{id}")]
-        public async Task<IActionResult> AddPoints(string id)
+        [HttpPost("changepassword")]
+        public async Task<IActionResult> ChangePassword(UserUpdatePasswordDto userUpdatePassword)
         {
-            var user = await _userService.AddPonits(id, -3);
+            bool result = await _userService.UpdatePassword(userUpdatePassword);
 
-            if(user != null) return Ok(user);
+            if(result) return Ok("Senha alterada com sucesso!");
 
-            return BadRequest("Erro ao adicionar os pontos");
+            return BadRequest("Senha atual incorreta");
         }
     }
 }

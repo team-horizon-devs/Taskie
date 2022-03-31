@@ -55,6 +55,8 @@ namespace Taskie.Application
 
                 options.Lockout.MaxFailedAccessAttempts = 3;
                 options.Lockout.AllowedForNewUsers = true;
+
+                //options.User.RequireUniqueEmail = true;
             })
             .AddEntityFrameworkStores<TaskieContext>()
             .AddSignInManager<SignInManager<UserEntity>>()

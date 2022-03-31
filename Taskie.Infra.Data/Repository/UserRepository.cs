@@ -43,5 +43,32 @@ namespace Taskie.Infra.Data.Repository
 
             return user;
         }
+
+        public async Task<bool> UpdatePointsAsync(string userId, int points)
+        {
+            var user = await _context.User.FirstOrDefaultAsync(u => u.Id == userId);
+            user.Point += points;
+            _context.User.Update(user);
+
+            return (await _context.SaveChangesAsync() > 0);
+        }
+
+        public async Task<bool> UpdateAvatarAsync(string userId, int avatarId)
+        {
+            var user = await _context.User.FirstOrDefaultAsync(u => u.Id == userId);
+            user.AvatarId = avatarId;
+            _context.User.Update(user);
+
+            return (await _context.SaveChangesAsync() > 0);
+        }
+
+        public async Task<bool> DisableUserAsync(string userId)
+        {
+            var user = await _context.User.FirstOrDefaultAsync(u => u.Id == userId);
+            user.Active = false;
+            _context.User.Update(user);
+
+            return (await _context.SaveChangesAsync() > 0);
+        }
     }
 }

@@ -8,10 +8,11 @@ namespace Taskie.Domain.Interfaces.Repository
     {
 
         Task<UserEntity> GetUserByIdAsync(string id);
-
         Task<UserEntity> GetUserByUserNameAsync(string userName);
-
         Task<IEnumerable<UserEntity>> GetAllUserAsync();
+        Task<bool> UpdatePointsAsync(string userId, int points);
+        Task<bool> UpdateAvatarAsync(string userId, int avatarId);
+        Task<bool> DisableUserAsync(string userId);
 
     }
 }

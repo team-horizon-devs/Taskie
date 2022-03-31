@@ -16,17 +16,19 @@ namespace Taskie.Service.Services
     public class UserService : IUserService
     {
         private readonly UserManager<UserEntity> _userManager;
+        private readonly SignInManager<UserEntity> _signInManager;
         private readonly IMapper _mapper;
         private readonly IUserRepository _userRepository;
         private readonly EmailSettings _mailSettings;
 
         public UserService(UserManager<UserEntity> userManager, IMapper mapper,
-            IUserRepository userRepository, EmailSettings emailSettings)
+            SignInManager<UserEntity> signInManager, IUserRepository userRepository, EmailSettings emailSettings)
         {
             _userManager = userManager;
-            _mapper = mapper;
+            _signInManager = signInManager;
             _userRepository = userRepository;
             _mailSettings = emailSettings;
+            _mapper = mapper;
         }
 
         public async Task<UserDto> GetById(string id)
@@ -53,19 +55,21 @@ namespace Taskie.Service.Services
             throw new InvalidOperationException("Ocorreu um erro ao criar o usuário!");
         }
 
-        public async Task<UserDto> ConfirmEmail(string userId, string token)
+        public async Task<bool> ConfirmEmail(string userId, string token)
         {
             var user = await _userManager.FindByIdAsync(userId);
             var result = await _userManager.ConfirmEmailAsync(user, token);
 
-            if (result.Succeeded) return _mapper.Map<UserDto>(user);
+            if (result.Succeeded) return true;
 
-            throw new InvalidOperationException("Ocorreu um erro ao confirmar o Email!");
+            else return false;
         }
 
-        public Task<UserEntity> DisabledUser(string id)
+        public async Task<bool> DisabledUser(string userId)
         {
-            throw new NotImplementedException();
+            bool result = await _userRepository.DisableUserAsync(userId);
+
+            return result;
         }
 
         public async Task<IEnumerable<UserDto>> GetAll()
@@ -88,20 +92,11 @@ namespace Taskie.Service.Services
                $"Clique no link para confirmar seu email {confirmationLink}");
         }
 
-        public async Task<UserDto> AddPonits(string userId, int points)
+        public async Task<bool> UpdateAvatar(string userId, int avatarId)
         {
-            var user = await _userRepository.GetUserByIdAsync(userId);
-            user.Point += points;
-            var result = await _userManager.UpdateAsync(user);
+            bool result = await _userRepository.UpdateAvatarAsync(userId, avatarId);
 
-            if (result.Succeeded) return _mapper.Map<UserDto>(user);
-
-            throw new InvalidOperationException("Ocorreu um erro ao confirmar o Email!");
-        }
-
-        public Task<UserEntity> UpdateAvatar(UserUpdateDto user)
-        {
-            throw new NotImplementedException(); 
+            return result;
         }
 
         public Task<UserEntity> UpdateUser(UserUpdateDto user)
@@ -117,6 +112,22 @@ namespace Taskie.Service.Services
             return confirmationToken;
         }
 
+        public async Task<bool> UpdatePassword(UserUpdatePasswordDto userUpdate)
+        {
+            
+            UserEntity user = await _userRepository.GetUserByIdAsync(userUpdate.Id);
 
+            var result = await _signInManager.CheckPasswordSignInAsync(user, userUpdate.Password, false);
+
+            if(result.Succeeded)
+            {
+                var resultUpdate = await _userManager.ChangePasswordAsync(user, 
+                                                                        userUpdate.Password, 
+                                                                        userUpdate.NewPassword);
+                if (resultUpdate.Succeeded) return true;
+            }
+
+            return false;
+        }
     }
 }
