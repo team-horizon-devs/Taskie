@@ -16,7 +16,6 @@ namespace Taskie.Infra.CrossCutting.Mappings
             CreateMap<UserEntity, UserDto>().ReverseMap();
             CreateMap<UserEntity, UserCreateDto>().ReverseMap();
             CreateMap<UserEntity, UserUpdateDto>().ReverseMap();
-            CreateMap<UserEntity, UserUpdatePasswordDto>().ReverseMap();
             CreateMap<AvatarEntity, AvatarDto>().ReverseMap();
             CreateMap<AvatarEntity, AvatarToUserDto>().ReverseMap();
             CreateMap<AchievementUserEntity, AchievementUserToUserDto>().ReverseMap();

@@ -115,13 +115,34 @@ namespace Taskie.Application.Controller
         }
 
         [HttpPost("changepassword")]
-        public async Task<IActionResult> ChangePassword(UserUpdatePasswordDto userUpdatePassword)
+        public async Task<IActionResult> ChangePassword(UserUpdatePassword userUpdatePassword)
         {
-            bool result = await _userService.UpdatePassword(userUpdatePassword);
+            if (userUpdatePassword.Password == userUpdatePassword.NewPassword)
+                return BadRequest("Esta já é sua senha atual");
+
+            bool result = await _userService.ChangePassword(userUpdatePassword);
 
             if(result) return Ok("Senha alterada com sucesso!");
 
             return BadRequest("Senha atual incorreta");
+        }
+
+        [HttpPost("update")]
+        public async Task<IActionResult> UpdateUser(UserUpdateDto userUpdateDto)
+        {
+            try
+            {
+
+                var result = await _userService.UpdateUser(userUpdateDto);
+
+                if (result.Succeeded) return Ok("Usuário editado com sucesso!");
+
+                return BadRequest("Erro ao editar usuário");
+            }
+            catch (Exception e)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"ERRO {e.Message}");
+            }
         }
     }
 }

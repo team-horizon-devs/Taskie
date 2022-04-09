@@ -70,5 +70,17 @@ namespace Taskie.Infra.Data.Repository
 
             return (await _context.SaveChangesAsync() > 0);
         }
+
+        public async Task<bool> UpdatePhoneAsync(string userId, string phoneNumber)
+        {
+            var user = await _context.User.FirstOrDefaultAsync(u => u.Id == userId);
+
+            user.PhoneNumber = phoneNumber;
+            _context.User.Update(user);
+
+            return (await _context.SaveChangesAsync() > 0);
+        }
+
+        
     }
 }

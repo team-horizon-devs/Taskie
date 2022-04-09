@@ -12,12 +12,12 @@ namespace Taskie.Domain.Interfaces.Service
         Task<UserDto> GetByUserName(string userName);
         Task<IEnumerable<UserDto>> GetAll();
         Task<UserDto> CreateUser(UserCreateDto userCreateDto);
-        Task<UserEntity> UpdateUser(UserUpdateDto userUpdateDto);
+        Task<IdentityResult> UpdateUser(UserUpdateDto userUpdateDto);
         Task<bool> DisabledUser(string id);
         Task<bool> UpdateAvatar(string userId, int avatarId);
         Task<bool> ConfirmEmail(string userid, string token);
         void SendEmailConfirmed(UserDto user, string confirmationLink);
         Task<string> GenerateConfirmedToken(string userId);
-        Task<bool> UpdatePassword(UserUpdatePasswordDto userUpdate);
+        Task<bool> ChangePassword(UserUpdatePassword userUpdatePassword);
     }
 }

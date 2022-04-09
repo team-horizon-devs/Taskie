@@ -99,9 +99,17 @@ namespace Taskie.Service.Services
             return result;
         }
 
-        public Task<UserEntity> UpdateUser(UserUpdateDto user)
+        public async Task<IdentityResult> UpdateUser(UserUpdateDto userUpdateDto)
         {
-            throw new NotImplementedException();
+            UserEntity user = await _userRepository.GetUserByIdAsync(userUpdateDto.Id);
+
+            user.Name = userUpdateDto.Name;
+            user.PhoneNumber = userUpdateDto.PhoneNumber;
+
+            var result = await _userManager.UpdateAsync(user);
+
+            return result;
+
         }
 
         public async Task<string> GenerateConfirmedToken(string userId)
@@ -112,22 +120,23 @@ namespace Taskie.Service.Services
             return confirmationToken;
         }
 
-        public async Task<bool> UpdatePassword(UserUpdatePasswordDto userUpdate)
+        public async Task<bool> ChangePassword(UserUpdatePassword userUpdatePassword)
         {
             
-            UserEntity user = await _userRepository.GetUserByIdAsync(userUpdate.Id);
+            UserEntity user = await _userRepository.GetUserByIdAsync(userUpdatePassword.Id);
 
-            var result = await _signInManager.CheckPasswordSignInAsync(user, userUpdate.Password, false);
+            var result = await _signInManager.CheckPasswordSignInAsync(user, userUpdatePassword.Password, false);
 
             if(result.Succeeded)
             {
-                var resultUpdate = await _userManager.ChangePasswordAsync(user, 
-                                                                        userUpdate.Password, 
-                                                                        userUpdate.NewPassword);
+                var resultUpdate = await _userManager.ChangePasswordAsync(user,
+                                                                        userUpdatePassword.Password,
+                                                                        userUpdatePassword.NewPassword);
                 if (resultUpdate.Succeeded) return true;
             }
 
             return false;
         }
+
     }
 }

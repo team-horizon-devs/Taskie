@@ -13,6 +13,7 @@ namespace Taskie.Domain.Interfaces.Repository
         Task<bool> UpdatePointsAsync(string userId, int points);
         Task<bool> UpdateAvatarAsync(string userId, int avatarId);
         Task<bool> DisableUserAsync(string userId);
+        Task<bool> UpdatePhoneAsync(string userId, string phoneNumber);
 
     }
 }
