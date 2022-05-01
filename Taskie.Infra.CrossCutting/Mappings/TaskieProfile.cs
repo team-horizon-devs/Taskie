@@ -16,11 +16,19 @@ namespace Taskie.Infra.CrossCutting.Mappings
             CreateMap<UserEntity, UserDto>().ReverseMap();
             CreateMap<UserEntity, UserCreateDto>().ReverseMap();
             CreateMap<UserEntity, UserUpdateDto>().ReverseMap();
+
             CreateMap<AvatarEntity, AvatarDto>().ReverseMap();
             CreateMap<AvatarEntity, AvatarToUserDto>().ReverseMap();
+
             CreateMap<AchievementUserEntity, AchievementUserToUserDto>().ReverseMap();
+
             CreateMap<AchievementEntity, AchievementToUserDto>().ReverseMap();
+            CreateMap<AchievementEntity, AchievementDto>().ReverseMap();
+            CreateMap<AchievementEntity, AchievementCreateDto>().ReverseMap();
+            CreateMap<AchievementEntity, AchievementUpdateDto>().ReverseMap();
+
             CreateMap<TrophyUserEntity, TrophyUserToUserDto>().ReverseMap();
+
             CreateMap<TrophyEntity, TrophyToUserDto>().ReverseMap();
         }
     }

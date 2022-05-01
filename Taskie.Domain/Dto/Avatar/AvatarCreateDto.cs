@@ -2,7 +2,7 @@
 
 namespace Taskie.Domain.Dto.Avatar
 {
-    class AvatarDtoCreate
+    public class AvatarCreateDto
     {
         [Required]
         public string Desciption { get; set; }

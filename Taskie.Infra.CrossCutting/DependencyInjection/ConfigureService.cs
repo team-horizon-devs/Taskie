@@ -9,6 +9,7 @@ namespace Taskie.Infra.CrossCutting.DependencyInjection
         public static IServiceCollection AddServices(this IServiceCollection services)
         {
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IAchievementService, AchievementService>();
 
             return services;
         }
