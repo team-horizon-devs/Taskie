@@ -11,6 +11,7 @@ namespace Taskie.Infra.CrossCutting.DependencyInjection
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IAchievementService, AchievementService>();
             services.AddScoped<IAvatarService, AvatarService>();
+            services.AddScoped<ITrophyService, TrophyService>();
 
             return services;
         }

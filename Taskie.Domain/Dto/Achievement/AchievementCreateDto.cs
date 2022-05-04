@@ -1,11 +1,10 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Taskie.Domain.Dto.Achievement
 {
     public class AchievementCreateDto
     {
-        [Required(ErrorMessage = "Insira uma nome para representar a recompensa")]
+        [Required(ErrorMessage = "Insira um nome para representar a recompensa")]
         [MaxLength(60, ErrorMessage = "Nome deve ter no máximo {1} caracteres.")]
         public string Name { get; set; }
 

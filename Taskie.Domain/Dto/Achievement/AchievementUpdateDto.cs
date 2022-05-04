@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Taskie.Domain.Dto.Achievement
 {
@@ -30,5 +26,8 @@ namespace Taskie.Domain.Dto.Achievement
 
         [Required(ErrorMessage = "Insira a quatidade de tarefas de prioridade 3 necessária para obter a conquista")]
         public int Priority3 { get; set; }
+
+        public DateTime CreatedAt { get; set; } = DateTime.Parse(DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss"));
+
     }
 }

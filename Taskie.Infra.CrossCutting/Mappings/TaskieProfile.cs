@@ -19,6 +19,8 @@ namespace Taskie.Infra.CrossCutting.Mappings
 
             CreateMap<AvatarEntity, AvatarDto>().ReverseMap();
             CreateMap<AvatarEntity, AvatarToUserDto>().ReverseMap();
+            CreateMap<AvatarEntity, AvatarCreateDto>().ReverseMap();
+            CreateMap<AvatarEntity, AvatarUpdateDto>().ReverseMap();
 
             CreateMap<AchievementUserEntity, AchievementUserToUserDto>().ReverseMap();
 
@@ -29,7 +31,10 @@ namespace Taskie.Infra.CrossCutting.Mappings
 
             CreateMap<TrophyUserEntity, TrophyUserToUserDto>().ReverseMap();
 
+            CreateMap<TrophyEntity, TrophyDto>().ReverseMap();
             CreateMap<TrophyEntity, TrophyToUserDto>().ReverseMap();
+            CreateMap<TrophyEntity, TrophyCreateDto>().ReverseMap();
+            CreateMap<TrophyEntity, TrophyUpdateDto>().ReverseMap();
         }
     }
 }
