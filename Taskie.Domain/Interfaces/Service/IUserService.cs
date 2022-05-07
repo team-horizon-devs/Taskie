@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Taskie.Domain.Dto.TrophyUser;
 using Taskie.Domain.Dto.User;
 using Taskie.Domain.Entities;
 
@@ -19,5 +20,6 @@ namespace Taskie.Domain.Interfaces.Service
         void SendEmailConfirmed(UserDto user, string confirmationLink);
         Task<string> GenerateConfirmedToken(string userId);
         Task<bool> ChangePassword(UserUpdatePassword userUpdatePassword);
+        Task<bool> BuyTrophies(TrophyUserCreateDto trophyUserCreate);
     }
 }

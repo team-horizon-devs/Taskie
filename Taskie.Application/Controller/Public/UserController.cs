@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Taskie.Domain.Dto.User;
 using System.Net;
 using System;
-using Microsoft.AspNetCore.Identity;
+using Taskie.Domain.Dto.TrophyUser;
 
 namespace Taskie.Application.Controller
 {
@@ -144,5 +144,24 @@ namespace Taskie.Application.Controller
                 return this.StatusCode(StatusCodes.Status500InternalServerError, $"ERRO {e.Message}");
             }
         }
+
+        [HttpPost("buytrophies")]
+        public async Task<IActionResult> BuyTrophies(TrophyUserCreateDto trophyUserCreate)
+        {
+            try
+            {
+
+                var result = await _userService.BuyTrophies(trophyUserCreate);
+
+                if (result) return Ok("Você comprou o troféu");
+
+                return BadRequest("Erro ao comprar troféu");
+            }
+            catch (Exception e)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"ERRO {e.Message}");
+            }
+        }
+
     }
 }

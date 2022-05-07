@@ -30,6 +30,7 @@ namespace Taskie.Infra.CrossCutting.Mappings
             CreateMap<AchievementEntity, AchievementUpdateDto>().ReverseMap();
 
             CreateMap<TrophyUserEntity, TrophyUserToUserDto>().ReverseMap();
+            CreateMap<TrophyUserEntity, TrophyUserCreateDto>().ReverseMap();
 
             CreateMap<TrophyEntity, TrophyDto>().ReverseMap();
             CreateMap<TrophyEntity, TrophyToUserDto>().ReverseMap();

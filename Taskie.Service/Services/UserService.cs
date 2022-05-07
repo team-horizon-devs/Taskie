@@ -10,6 +10,7 @@ using System.Net.Mail;
 using AutoMapper;
 using System.Net;
 using System;
+using Taskie.Domain.Dto.TrophyUser;
 
 namespace Taskie.Service.Services
 {
@@ -20,15 +21,21 @@ namespace Taskie.Service.Services
         private readonly IMapper _mapper;
         private readonly IUserRepository _userRepository;
         private readonly EmailSettings _mailSettings;
+        private readonly ITrophyRepository _trophyRepository;
+        private readonly ITrophyUserService _trophyUserService;
+
 
         public UserService(UserManager<UserEntity> userManager, IMapper mapper,
-            SignInManager<UserEntity> signInManager, IUserRepository userRepository, EmailSettings emailSettings)
+            SignInManager<UserEntity> signInManager, IUserRepository userRepository, 
+            EmailSettings emailSettings, ITrophyUserService trophyUserService, ITrophyRepository trophyRepository)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _userRepository = userRepository;
             _mailSettings = emailSettings;
             _mapper = mapper;
+            _trophyRepository = trophyRepository;
+            _trophyUserService = trophyUserService;
         }
 
         public async Task<UserDto> GetById(string id)
@@ -138,5 +145,24 @@ namespace Taskie.Service.Services
             return false;
         }
 
+        public async Task<bool> BuyTrophies(TrophyUserCreateDto trophyUserCreate)
+        {
+            var user = await _userRepository.GetUserByIdAsync(trophyUserCreate.UserId);
+            var trophy = await _trophyRepository.GetIdAsync(trophyUserCreate.TrophyId);
+
+            if (user.Point >= trophy.PricePoints)
+            {
+                await _trophyUserService.CreateTrophyUser(trophyUserCreate);
+
+                user.Point -= trophy.PricePoints;
+
+                await _userManager.UpdateAsync(user);
+
+
+                return true;
+            }
+
+            return false;
+        }
     }
 }
