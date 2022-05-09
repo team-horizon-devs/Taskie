@@ -11,11 +11,14 @@ namespace Taskie.Service.Services
     public class TrophyService : ITrophyService
     {
         private readonly ITrophyRepository _trophyRepository;
+        private readonly ITrophyUserRepository _trophyUserRepository;
         private readonly IMapper _mapper;
 
-        public TrophyService(ITrophyRepository trophyRepository, IMapper mapper)
+        public TrophyService(ITrophyRepository trophyRepository, IMapper mapper, 
+                            ITrophyUserRepository trophyUserRepository)
         {
             _trophyRepository = trophyRepository;
+            _trophyUserRepository = trophyUserRepository;
             _mapper = mapper;
         }
 
