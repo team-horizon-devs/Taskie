@@ -65,9 +65,26 @@ namespace Taskie.Service.Services
             throw new System.NotImplementedException();
         }
 
-        public Task<IEnumerable<TrophyDto>> GetAllNotObtained(string userId)
+        public async Task<IEnumerable<TrophyDto>> GetAllNotObtained(string userId)
         {
-            throw new System.NotImplementedException();
+            IEnumerable<TrophyEntity> thophies = await _trophyRepository.GetAllAsync();
+            IEnumerable<TrophyUserEntity> obtained = await _trophyUserRepository.GetAllTrophiesByUserIdAsync(userId);
+            List<TrophyEntity> notObtained = (List<TrophyEntity>)thophies;
+
+            foreach (TrophyEntity trophy in thophies)
+            {
+                foreach (TrophyUserEntity trophyUser in obtained)
+                {
+                    if (trophy.Id == trophyUser.TrophyId)
+                    {
+                        notObtained.Add(trophy);
+                    }
+                }
+            }
+
+            return _mapper.Map<IEnumerable<TrophyDto>>(notObtained);
+
+
         }
     }
 }
