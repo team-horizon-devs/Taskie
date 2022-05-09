@@ -69,22 +69,23 @@ namespace Taskie.Service.Services
         {
             IEnumerable<TrophyEntity> thophies = await _trophyRepository.GetAllAsync();
             IEnumerable<TrophyUserEntity> obtained = await _trophyUserRepository.GetAllTrophiesByUserIdAsync(userId);
-            List<TrophyEntity> notObtained = (List<TrophyEntity>)thophies;
+            List<TrophyEntity> notObtained = new();
 
             foreach (TrophyEntity trophy in thophies)
             {
+                bool found = false;
+
                 foreach (TrophyUserEntity trophyUser in obtained)
                 {
-                    if (trophy.Id == trophyUser.TrophyId)
+                    if (trophy.Id.Equals(trophyUser.TrophyId))
                     {
-                        notObtained.Add(trophy);
+                        found = true;
                     }
                 }
+                if (!found) notObtained.Add(trophy);
             }
 
             return _mapper.Map<IEnumerable<TrophyDto>>(notObtained);
-
-
         }
     }
 }
