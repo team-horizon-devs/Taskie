@@ -21,7 +21,7 @@ namespace Taskie.Domain.Dto.Trophy
         [Required(ErrorMessage = "Insira o custo de pontos para comprar o Troféu")]
         public int PricePoints { get; set; }
 
-        public DateTime CreatedAt { get; set; } = DateTime.Parse(DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss"));
+        public DateTime UpdatedAt { get; set; } = DateTime.Parse(DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss"));
 
     }
 }

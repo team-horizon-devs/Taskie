@@ -2,12 +2,12 @@
 using System.ComponentModel.DataAnnotations;
 using Taskie.Domain.Entities.Enums;
 
-namespace Taskie.Domain.Entities
+namespace Taskie.Domain.Dto.Task
 {
-    public class TaskEntity : BaseEntity
+    public class TaskCreateDto
     {
         [Required]
-        [StringLength(80)]
+        [StringLength(80, ErrorMessage = "Título da tarefa deve ter no máximo {1} caracteres.")]
         public string Title { get; set; }
 
         public string Description { get; set; }
@@ -15,15 +15,10 @@ namespace Taskie.Domain.Entities
         [Required]
         public PriorityEnum Priority { get; set; }
 
-        public DateTime? Finished { get; set; } = null;
-
-        public bool? FinishedInTime { get; set; } = null;
-
         [Required]
         public DateTime? Deadline { get; set; }
 
+        [Required]
         public string UserId { get; set; }
-
-        public UserEntity User { get; set; }
     }
 }

@@ -22,12 +22,12 @@ namespace Taskie.Service.Services
         private readonly IUserRepository _userRepository;
         private readonly EmailSettings _mailSettings;
         private readonly ITrophyRepository _trophyRepository;
-        private readonly ITrophyUserService _trophyUserService;
+        private readonly ITrophyUserRepository _trophyUserRepository;
 
 
         public UserService(UserManager<UserEntity> userManager, IMapper mapper,
             SignInManager<UserEntity> signInManager, IUserRepository userRepository, 
-            EmailSettings emailSettings, ITrophyUserService trophyUserService, ITrophyRepository trophyRepository)
+            EmailSettings emailSettings, ITrophyUserRepository trophyUserRepository, ITrophyRepository trophyRepository)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -35,7 +35,7 @@ namespace Taskie.Service.Services
             _mailSettings = emailSettings;
             _mapper = mapper;
             _trophyRepository = trophyRepository;
-            _trophyUserService = trophyUserService;
+            _trophyUserRepository = trophyUserRepository;
         }
 
         public async Task<UserDto> GetById(string id)
@@ -152,7 +152,9 @@ namespace Taskie.Service.Services
 
             if (user.Point >= trophy.PricePoints)
             {
-                await _trophyUserService.CreateTrophyUser(trophyUserCreate);
+                var trophyUser = _mapper.Map<TrophyUserEntity>(trophyUserCreate);
+
+                await _trophyUserRepository.CreateAsync(trophyUser);
 
                 user.Point -= trophy.PricePoints;
 

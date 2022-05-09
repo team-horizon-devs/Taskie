@@ -57,6 +57,14 @@ namespace Taskie.Service.Services
             return result;
         }
 
+        public Task<IEnumerable<TrophyDto>> GetAllObtained(string userId)
+        {
+            throw new System.NotImplementedException();
+        }
 
+        public Task<IEnumerable<TrophyDto>> GetAllNotObtained(string userId)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

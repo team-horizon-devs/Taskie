@@ -27,7 +27,7 @@ namespace Taskie.Domain.Dto.Achievement
         [Required(ErrorMessage = "Insira a quatidade de tarefas de prioridade 3 necessária para obter a conquista")]
         public int Priority3 { get; set; }
 
-        public DateTime CreatedAt { get; set; } = DateTime.Parse(DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss"));
+        public DateTime UpdatedAt { get; set; } = DateTime.Parse(DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss"));
 
     }
 }

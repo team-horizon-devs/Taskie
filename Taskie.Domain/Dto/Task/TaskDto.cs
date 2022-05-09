@@ -1,29 +1,21 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations;
 using Taskie.Domain.Entities.Enums;
 
-namespace Taskie.Domain.Entities
+namespace Taskie.Domain.Dto.Task
 {
-    public class TaskEntity : BaseEntity
+    public class TaskDto
     {
-        [Required]
-        [StringLength(80)]
         public string Title { get; set; }
 
         public string Description { get; set; }
 
-        [Required]
         public PriorityEnum Priority { get; set; }
 
         public DateTime? Finished { get; set; } = null;
 
         public bool? FinishedInTime { get; set; } = null;
 
-        [Required]
         public DateTime? Deadline { get; set; }
 
-        public string UserId { get; set; }
-
-        public UserEntity User { get; set; }
     }
 }

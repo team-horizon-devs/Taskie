@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Taskie.Infra.Data.Context;
 
 namespace Taskie.Infra.Data.Migrations
 {
     [DbContext(typeof(TaskieContext))]
-    partial class TaskieContextModelSnapshot : ModelSnapshot
+    [Migration("20220507233705_AjusteTaskEntity")]
+    partial class AjusteTaskEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -303,7 +305,7 @@ namespace Taskie.Infra.Data.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2022, 5, 7, 23, 42, 46, 0, DateTimeKind.Unspecified),
+                            CreatedAt = new DateTime(2022, 5, 7, 23, 37, 4, 0, DateTimeKind.Unspecified),
                             Desciption = "Default Image",
                             Image = "https://live.staticflickr.com/65535/51885254260_cb60cd62df_t.jpg"
                         });
@@ -336,8 +338,7 @@ namespace Taskie.Infra.Data.Migrations
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasMaxLength(80)
-                        .HasColumnType("varchar(80)");
+                        .HasColumnType("longtext");
 
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime(6)");
