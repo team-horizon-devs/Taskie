@@ -8,10 +8,10 @@ namespace Taskie.Domain.Interfaces.Service
     {
         Task<TrophyDto> GetById(int idTrophy);
         Task<IEnumerable<TrophyDto>> GetAll();
-        Task<IEnumerable<TrophyDto>> GetAllObtained(string userId);
-        Task<IEnumerable<TrophyDto>> GetAllNotObtained(string userId);
+        Task<IEnumerable<TrophyDto>> GetAllObtainedByUser(string userId);
+        Task<IEnumerable<TrophyDto>> GetAllNotObtainedByUser(string userId);
         Task<TrophyDto> CrateTrophy(TrophyCreateDto trophyCreate);
         Task<TrophyDto> UpdateTrophy(TrophyCreateDto trophyUpdate);
-        Task<bool> RemoveTrophy(int idTrophyr);
+        Task<bool> DeleteTrophy(int idTrophyr);
     }
 }

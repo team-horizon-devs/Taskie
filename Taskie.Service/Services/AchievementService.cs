@@ -11,11 +11,14 @@ namespace Taskie.Service.Services
     public class AchievementService : IAchievementService
     {
         private readonly IAchievementRepository _achievementRepository;
+        private readonly IAchievementUserRepository _achievementUserRepository;
         private readonly IMapper _mapper;   
 
-        public AchievementService(IAchievementRepository achievementRepository, IMapper mapper)
+        public AchievementService(IAchievementRepository achievementRepository, IMapper mapper,
+                                  IAchievementUserRepository achievementUserRepository)
         {
             _achievementRepository = achievementRepository;
+            _achievementUserRepository = achievementUserRepository;
             _mapper = mapper;
         }
 
@@ -55,6 +58,20 @@ namespace Taskie.Service.Services
             bool result = await _achievementRepository.DeleteAsync(idAchievement);
             
             return result;
+        }
+
+        public async Task<IEnumerable<AchievementDto>> GetAllObtainedByUserId(string idUser)
+        {
+            var obtained = await _achievementUserRepository.GetAllAchievementsByUserIdAsync(idUser);
+
+            return _mapper.Map<IEnumerable<AchievementDto>>(obtained);
+        }
+
+        public async Task<IEnumerable<AchievementDto>> GetAllNotObtainedByUserId(string idUser)
+        {
+            var notObtained = await _achievementUserRepository.GetAllAchievementsNotObtainedByUserIdAsync(idUser);
+            
+            return _mapper.Map<IEnumerable<AchievementDto>>(notObtained);
         }
     }
 }

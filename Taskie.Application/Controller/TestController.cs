@@ -19,12 +19,12 @@ namespace Taskie.Application.Controller
             _trophyService = trophyService;
         }
 
-        [HttpGet("notobtained/{id}")]
+        [HttpGet("teste/{id}")]
         public async Task<IActionResult> GetTrophiesNotObtainedByUserId(string id)
         {
             try
             {
-                var notObtained = await _trophyService.GetAllNotObtained(id);
+                var notObtained = await _trophyService.GetAllNotObtainedByUser(id);
 
                 return Ok(notObtained);
             }

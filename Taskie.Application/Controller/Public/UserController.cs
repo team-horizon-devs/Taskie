@@ -150,16 +150,15 @@ namespace Taskie.Application.Controller
         {
             try
             {
-
                 var result = await _userService.BuyTrophies(trophyUserCreate);
 
-                if (result) return Ok("Você comprou o troféu");
+                if (result != null) return Ok(result);
 
-                return BadRequest("Erro ao comprar troféu");
+                return BadRequest();
             }
             catch (Exception e)
             {
-                return this.StatusCode(StatusCodes.Status500InternalServerError, $"ERRO {e.Message}");
+                return this.StatusCode(StatusCodes.Status400BadRequest, $"ERRO {e.Message}");
             }
         }
 

@@ -53,39 +53,26 @@ namespace Taskie.Service.Services
             return _mapper.Map<TrophyDto>(updated);
         }
 
-        public async Task<bool> RemoveTrophy(int idTrophy)
+        public async Task<IEnumerable<TrophyDto>> GetAllNotObtainedByUser(string userId)
+        {
+            var notObtained = await _trophyUserRepository.GetAllTrophiesNotObtainedByUserIdAsync(userId);
+
+            return _mapper.Map<IEnumerable<TrophyDto>>(notObtained);
+
+        }
+
+        public async Task<IEnumerable<TrophyDto>> GetAllObtainedByUser(string userId)
+        {
+            var obtained = await _trophyUserRepository.GetAllTrophiesByUserIdAsync(userId);
+
+            return _mapper.Map<IEnumerable<TrophyDto>>(obtained);
+        }
+
+        public async Task<bool> DeleteTrophy(int idTrophy)
         {
             var result = await _trophyRepository.DeleteAsync(idTrophy);
 
             return result;
-        }
-
-        public Task<IEnumerable<TrophyDto>> GetAllObtained(string userId)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public async Task<IEnumerable<TrophyDto>> GetAllNotObtained(string userId)
-        {
-            IEnumerable<TrophyEntity> thophies = await _trophyRepository.GetAllAsync();
-            IEnumerable<TrophyUserEntity> obtained = await _trophyUserRepository.GetAllTrophiesByUserIdAsync(userId);
-            List<TrophyEntity> notObtained = new();
-
-            foreach (TrophyEntity trophy in thophies)
-            {
-                bool found = false;
-
-                foreach (TrophyUserEntity trophyUser in obtained)
-                {
-                    if (trophy.Id.Equals(trophyUser.TrophyId))
-                    {
-                        found = true;
-                    }
-                }
-                if (!found) notObtained.Add(trophy);
-            }
-
-            return _mapper.Map<IEnumerable<TrophyDto>>(notObtained);
         }
     }
 }

@@ -11,6 +11,7 @@ using AutoMapper;
 using System.Net;
 using System;
 using Taskie.Domain.Dto.TrophyUser;
+using Taskie.Domain.Dto.Trophy;
 
 namespace Taskie.Service.Services
 {
@@ -145,10 +146,25 @@ namespace Taskie.Service.Services
             return false;
         }
 
-        public async Task<bool> BuyTrophies(TrophyUserCreateDto trophyUserCreate)
+        public async Task<TrophyDto> BuyTrophies(TrophyUserCreateDto trophyUserCreate)
         {
             var user = await _userRepository.GetUserByIdAsync(trophyUserCreate.UserId);
             var trophy = await _trophyRepository.GetIdAsync(trophyUserCreate.TrophyId);
+
+            if (user == null || trophy == null)
+            {
+                throw new InvalidOperationException("Ocorreu um erro ao tentar realizar a operação, tente novamente");
+            }
+
+            var obtained = await _trophyUserRepository.GetAllTrophiesByUserIdAsync(trophyUserCreate.UserId);
+
+            foreach (var item in obtained)
+            {
+                if (item.Id == trophyUserCreate.TrophyId)
+                {
+                    throw new InvalidOperationException("Você já possui este troféu!");
+                }
+            }
 
             if (user.Point >= trophy.PricePoints)
             {
@@ -161,10 +177,10 @@ namespace Taskie.Service.Services
                 await _userManager.UpdateAsync(user);
 
 
-                return true;
+                return _mapper.Map<TrophyDto>(trophy);
             }
 
-            return false;
+            throw new InvalidOperationException("Você não possui pontos suficientes para comprar o troféu");
         }
     }
 }

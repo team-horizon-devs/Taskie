@@ -33,13 +33,32 @@ namespace Taskie.Infra.Data.Repository
             
         }
 
-        public async Task<IEnumerable<TrophyUserEntity>> GetAllTrophiesByUserIdAsync(string idUser)
+        public async Task<IEnumerable<TrophyEntity>> GetAllTrophiesByUserIdAsync(string idUser)
         {
             IQueryable<TrophyUserEntity> query = _context.TrophiesUsers;
             query = query.Include(tu => tu.Trophy).Where(tu => tu.UserId == idUser);
+            IEnumerable<TrophyEntity> thophies = await _context.Trophies.ToListAsync();
 
-            return await query.AsNoTracking().ToListAsync();
+            List<TrophyEntity> obtained = (from TrophyEntity trophy in thophies
+                                              from trophyUser in query
+                                              where trophy.Id == trophyUser.TrophyId
+                                              select trophy).ToList();
+
+            return obtained;
         }
-       
+
+        public async Task<IEnumerable<TrophyEntity>> GetAllTrophiesNotObtainedByUserIdAsync(string idUser)
+        {
+            IQueryable<TrophyUserEntity> query = _context.TrophiesUsers;
+            query = query.Include(tu => tu.Trophy).Where(tu => tu.UserId == idUser);
+            IEnumerable<TrophyEntity> thophies = await _context.Trophies.ToListAsync();
+
+            List<TrophyEntity> notObtained = (from TrophyEntity trophy in thophies
+                                              let obtIds = from trophyUser in query select trophyUser.TrophyId
+                                              where obtIds.Contains(trophy.Id) != true
+                                              select trophy).ToList();
+
+            return notObtained;
+        }
     }
 }
